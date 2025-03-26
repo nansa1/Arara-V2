@@ -1,0 +1,41 @@
+<div class="p-8">
+  <app-order-by-status [data]="data"></app-order-by-status>
+</div>
+
+<div class="flex justify-around items-center flex-wrap gap-6 p-5">
+  <!-- Orders Card -->
+  <div class="w-2/5 bg-white rounded-lg shadow-md p-6 transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+    <div class="flex items-center gap-4">
+      <div class="w-16 h-16 flex items-center justify-center bg-black text-white text-2xl font-semibold rounded-full">
+        O
+      </div>
+      <h2 class="text-xl font-bold text-gray-900">Orders</h2>
+    </div>
+    <div class="mt-4">
+      <div class="text-4xl font-bold text-black mt-4">{{ data.currentMonthOrders }}</div>
+      <div class="text-gray-500 text-lg mt-2">Current Month</div>
+    </div>
+    <div class="mt-4 bg-gray-100 p-3 rounded-md">
+      <div class="text-4xl font-bold text-black">{{ data.previousMonthOrders }}</div>
+      <div class="text-gray-500 text-lg">Previous Month</div>
+    </div>
+  </div>
+
+  <!-- Earnings Card -->
+  <div class="w-2/5 bg-white rounded-lg shadow-md p-6 transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+    <div class="flex items-center gap-4">
+      <div class="w-16 h-16 flex items-center justify-center bg-black text-white text-2xl font-semibold rounded-full">
+        E
+      </div>
+      <h2 class="text-xl font-bold text-gray-900">Earnings</h2>
+    </div>
+    <div class="mt-4">
+      <div class="text-4xl font-bold text-black mt-4">{{ data.currentMonthEarnings | currency:'USD':true }}</div>
+      <div class="text-gray-500 text-lg mt-2">Current Month</div>
+    </div>
+    <div class="mt-4 bg-gray-100 p-3 rounded-md">
+      <div class="text-4xl font-bold text-black">{{ data.previousMonthEarnings | currency:'USD':true }}</div>
+      <div class="text-gray-500 text-lg">Previous Month</div>
+    </div>
+  </div>
+</div>

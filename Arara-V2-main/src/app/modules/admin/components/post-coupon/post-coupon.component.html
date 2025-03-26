@@ -1,0 +1,48 @@
+<div class="flex items-center justify-center min-h-screen w-full">
+    <div class="max-w-md w-full p-6 rounded-lg shadow-lg bg-white">
+        <h2 class="text-center text-black text-2xl font-bold mb-6">Add Coupon</h2>
+
+        <form [formGroup]="categoryForm" (ngSubmit)="addCategory()" class="flex flex-col space-y-4">
+            <div class="form-field">
+                <label class="block text-black font-medium mb-1">Name</label>
+                <input type="text" placeholder="Name" formControlName="name"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md text-black text-lg focus:ring-2 focus:ring-black bg-gray-100">
+                <span class="text-red-500 text-sm" *ngIf="categoryForm.get('name').invalid  && categoryForm.get('name').touched">
+                    This input is required!
+                </span>
+            </div>
+
+            <div class="form-field">
+                <label class="block text-black font-medium mb-1">Code</label>
+                <input type="text" placeholder="Code" formControlName="code"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md text-black text-lg focus:ring-2 focus:ring-black bg-gray-100">
+                <span class="text-red-500 text-sm" *ngIf="categoryForm.get('code').invalid && categoryForm.get('code').touched">
+                    This input is required!
+                </span>
+            </div>
+
+            <div class="form-field">
+                <label class="block text-black font-medium mb-1">Discount %</label>
+                <input type="number" placeholder="Discount" formControlName="discount"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md text-black text-lg focus:ring-2 focus:ring-black bg-gray-100">
+                <span class="text-red-500 text-sm" *ngIf="categoryForm.get('discount').invalid && categoryForm.get('discount').touched">
+                    This input is required!
+                </span>
+            </div>
+
+            <div class="form-field">
+                <label class="block text-black font-medium mb-1">Expiration Date</label>
+                <input type="date" formControlName="expirationDate"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md text-black text-lg focus:ring-2 focus:ring-black bg-gray-100">
+                <span class="text-red-500 text-sm" *ngIf="categoryForm.get('expirationDate').invalid && categoryForm.get('expirationDate').touched">
+                    This input is required!
+                </span>
+            </div>
+
+            <button type="submit"
+                class="bg-black text-white w-full py-3 rounded-md font-semibold text-lg cursor-pointer hover:bg-gray-800 transition">
+                Add Coupon
+            </button>
+        </form>
+    </div>
+</div>

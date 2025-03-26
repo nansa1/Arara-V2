@@ -1,0 +1,75 @@
+<div *ngIf="products.length > 0; else emptyCart" class="p-8 bg-inherit min-h-screen">
+
+    <!-- Search Form -->
+    <form [formGroup]="searchProductForm" class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8" (submit)="submitForm()">
+      <div class="relative w-full sm:max-w-md">
+        <input type="text" formControlName="title"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 ease-in-out"
+          placeholder="Search for products">
+        <button type="submit"
+          class="absolute right-2 top-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 18l6-6m0 0l-6-6m6 6H4" />
+          </svg>
+        </button>
+      </div>
+      <p *ngIf="searchProductForm.get('title').invalid && searchProductForm.get('title').touched" 
+   class="text-red-500 text-sm">
+   Keyword is required
+</p>
+    </form>
+  
+    <!-- Product List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div *ngFor="let product of products"
+        class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-transform transform hover:scale-105 duration-300">
+  
+        <!-- Product Image -->
+        <div class="w-full min-h-56 overflow-hidden">
+          <img [src]="product.processedImg" alt="Product Image" 
+            class="w-full h-auto object-cover transition-transform duration-300 transform hover:scale-105">
+        </div>
+  
+        <!-- Product Details -->
+        <div class="p-4">
+          <h2 class="text-xl font-semibold text-blue-700 mb-2">{{ product.name }}</h2>
+          <p class="text-gray-600 text-sm mb-4">{{ product.description }}</p>
+          <div class="border-t border-gray-200 pt-3">
+            <div class="flex justify-between text-sm text-gray-800 mb-2">
+              <span class="font-medium">Price:</span>
+              <span>${{ product.price }}</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-800">
+              <span class="font-medium">Category:</span>
+              <span>{{ product.categoryName }}</span>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2 mt-4">
+            <a [routerLink]="'/admin/faq/' + product.id"
+              class="bg-blue-600 text-white px-3 py-2 rounded-md text-sm hover:bg-blue-700 transition">
+              FAQ
+            </a>
+            <a [routerLink]="'/admin/product/' + product.id"
+              class="bg-gray-600 text-white px-3 py-2 rounded-md text-sm hover:bg-gray-700 transition">
+              Update
+            </a>
+            <button class="bg-red-600 text-white px-3 py-2 rounded-md text-sm hover:bg-red-700 transition"
+              (click)="deleteProduct(product.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Empty Cart Message -->
+  <ng-template #emptyCart>
+    <div class="flex flex-col items-center justify-center mt-10 text-gray-600 h-72">
+      <span class="text-6xl">🛒</span>
+      <p class="mt-4 text-lg">Nothing to see here.</p>
+    </div>
+  </ng-template>
+  

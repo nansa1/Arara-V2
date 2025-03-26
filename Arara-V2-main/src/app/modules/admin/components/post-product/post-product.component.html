@@ -1,0 +1,82 @@
+<div class="flex items-center justify-center min-h-screen w-full">
+    <div class="max-w-md w-full p-6 rounded-lg shadow-lg bg-white">
+        <h2 class="text-center text-black text-2xl font-bold mb-6">Add Product</h2>
+
+        <!-- Spinner -->
+        <div *ngIf="isSpinning" class="flex justify-center">
+            <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-black"></div>
+        </div>
+
+        <form [formGroup]="productForm" (ngSubmit)="addProduct()" class="flex flex-col space-y-4">
+
+            <!-- File Upload -->
+            <div class="flex flex-col items-center space-y-2">
+                <label for="fileInput"
+                    class="cursor-pointer bg-gray-100 text-black px-4 py-2 rounded-md shadow-md hover:bg-gray-200 flex items-center space-x-2">
+                    <span>Select a File</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.172 7l-6.364 6.364a4 4 0 105.656 5.656l6.364-6.364a6 6 0 10-8.486-8.486l-6.364 6.364" />
+                    </svg>
+                </label>
+                <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+
+                <!-- Image Preview -->
+                <div *ngIf="selectedFile" class="w-24 h-24 rounded-full overflow-hidden border border-gray-300">
+                    <img [src]="imagePreview" alt="Selected Image" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- Category Select -->
+            <div>
+                <label class="block text-black font-medium mb-1">Select a Category</label>
+                <select formControlName="categoryId" name="categoryId"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-black text-lg focus:ring-2 focus:ring-black">
+                    <option *ngFor="let category of listOfCategories" [value]="category.id">
+                        {{ category.name }}
+                    </option>
+                </select>
+                <span class="text-red-500 text-sm" *ngIf="productForm.get('categoryId').invalid && productForm.get('categoryId').touched">
+                    This Input Is Required!
+                </span>
+            </div>
+
+            <!-- Name Input -->
+            <div>
+                <label class="block text-black font-medium mb-1">Name</label>
+                <input type="text" placeholder="Name" formControlName="name"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-black text-lg focus:ring-2 focus:ring-black">
+                <span class="text-red-500 text-sm" *ngIf="productForm.get('name').invalid && productForm.get('name').touched ">
+                    This Input Is Required!
+                </span>
+            </div>
+
+            <!-- Price Input -->
+            <div>
+                <label class="block text-black font-medium mb-1">Price</label>
+                <input type="number" placeholder="Price" formControlName="price"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-black text-lg focus:ring-2 focus:ring-black">
+                <span class="text-red-500 text-sm" *ngIf="productForm.get('price').invalid && productForm.get('price').touched">
+                    This Input Is Required!
+                </span>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label class="block text-black font-medium mb-1">Description</label>
+                <textarea placeholder="Description" formControlName="description"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-black text-lg focus:ring-2 focus:ring-black"></textarea>
+                <span class="text-red-500 text-sm" *ngIf="productForm.get('description').invalid && productForm.get('description').touched">
+                    This Input Is Required!
+                </span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                class="bg-black text-white w-full py-3 rounded-md font-semibold text-lg cursor-pointer hover:bg-gray-800 transition">
+                Add Product
+            </button>
+        </form>
+    </div>
+</div>

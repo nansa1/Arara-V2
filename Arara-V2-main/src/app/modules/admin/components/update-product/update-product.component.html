@@ -1,0 +1,86 @@
+<div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md mt-10">
+    <h2 class="text-xl font-bold text-center text-blue-600 mb-4">Update Product</h2>
+
+    <!-- Loader Spinner -->
+    <div *ngIf="isSpinning" class="flex justify-center">
+        <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+        </svg>
+    </div>
+
+    <form [formGroup]="updateProductForm" (ngSubmit)="updateProduct()" class="space-y-4">
+
+        <!-- File Upload -->
+        <div class="flex flex-col items-center space-y-3">
+            <label
+                class="flex items-center px-6 py-3 bg-blue-600 text-white rounded-md cursor-pointer transition hover:bg-blue-700">
+                <span class="mr-2">Select a File</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15.172 7l-6.586 6.586a2 2 0 01-2.828 0L2 10.828m0 0a2 2 0 012.828 0L8 12.828m0 0l6.586-6.586A2 2 0 0117.414 7H20a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2">
+                    </path>
+                </svg>
+                <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+            </label>
+
+            <!-- Image Preview -->
+            <div *ngIf="imagePreview" class="w-36 h-36 rounded-full overflow-hidden bg-gray-200 shadow-lg">
+                <img [src]="imagePreview" alt="Selected Image" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Existing Image -->
+            <div *ngIf="existingImage" class="w-36 h-36 rounded-full overflow-hidden bg-gray-200 shadow-lg">
+                <img [src]="existingImage" alt="Existing Image" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <!-- Category Selection -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Select a Category</label>
+            <select formControlName="categoryId" name="categoryId"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-200">
+                <option *ngFor="let category of listOfCategories" [value]="category.id">
+                    {{ category.name }}
+                </option>
+            </select>
+            <p *ngIf="updateProductForm.get('categoryId')?.hasError('required')" class="text-red-500 text-sm mt-1">This
+                Input Is Required!</p>
+        </div>
+
+        <!-- Name Input -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Name</label>
+            <input type="text" placeholder="Name" formControlName="name"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-200">
+            <p *ngIf="updateProductForm.get('name')?.hasError('required')" class="text-red-500 text-sm mt-1">This Input
+                Is Required!</p>
+        </div>
+
+        <!-- Price Input -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Price</label>
+            <input type="number" placeholder="Price" formControlName="price"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-200">
+            <p *ngIf="updateProductForm.get('price')?.hasError('required')" class="text-red-500 text-sm mt-1">This Input
+                Is Required!</p>
+        </div>
+
+        <!-- Description Input -->
+        <div>
+            <label class="block text-gray-700 font-medium mb-1">Description</label>
+            <textarea placeholder="Description" formControlName="description"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"></textarea>
+            <p *ngIf="updateProductForm.get('description')?.hasError('required')" class="text-red-500 text-sm mt-1">This
+                Input Is Required!</p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+            class="w-full bg-black text-white font-semibold py-3 rounded-md hover:bg-gray-800 transition">
+            Update Product
+        </button>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="container mx-auto p-6 max-w-lg bg-white shadow-lg rounded-lg">
+    <h2 class="text-xl font-bold text-black mb-4">Add Category</h2>
+
+    <!-- Spinner -->
+    <div *ngIf="isSpinning" class="flex justify-center my-4">
+        <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500"></div>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()" [class.spinner-active]="isSpinning" class="space-y-4">
+
+        <!-- Name Input -->
+        <div>
+            <label class="block text-black font-medium mb-1">Name</label>
+            <input type="text" placeholder="Enter Name" formControlName="name"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+            <p *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched" class="text-red-600 text-sm mt-1">
+                This input is required!
+            </p>
+        </div>
+
+        <!-- Description Input -->
+        <div>
+            <label class="block text-black font-medium mb-1">Description</label>
+            <textarea placeholder="Enter Description" formControlName="description"
+                class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            <p *ngIf="categoryForm.get('description').invalid  && categoryForm.get('description').touched" class="text-red-600 text-sm mt-1">
+                This input is required!
+            </p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+            class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+            [disabled]="isSpinning">
+            Add Category
+        </button>
+    </form>
+</div>

@@ -1,0 +1,53 @@
+<form [formGroup]="searchOrderForm" class="flex items-center gap-4 p-4 bg-inherit">
+    <mat-form-field appearance="fill" class="flex-grow">
+        <mat-label>Enter Tracking ID</mat-label>
+        <input matInput formControlName="trackingId">
+        <mat-error *ngIf="searchOrderForm.get('trackingId').invalid">Tracking ID is required</mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" [disabled]="searchOrderForm.invalid" class="h-12 w-12 flex items-center justify-center rounded-md">
+        <mat-icon>search</mat-icon>
+    </button>
+</form>
+
+
+
+<!-- order-details.component.html -->
+<div class="order-details-container flex justify-center items-center mt-6" *ngIf="order">
+    <mat-card class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-6">
+        <mat-card-header class="flex justify-between items-center">
+            <mat-card-title class="text-xl font-semibold text-gray-800">Order Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="space-y-4 text-gray-700">
+            <div class="flex justify-between border-b pb-2">
+                <span class="font-medium">Tracking ID:</span>
+                <strong>{{ order.trackingId }}</strong>
+            </div>
+            <div class="flex justify-between border-b pb-2">
+                <span class="font-medium">User Name:</span>
+                <strong>{{ order.userName }}</strong>
+            </div>
+            <div class="flex justify-between border-b pb-2">
+                <span class="font-medium">Address:</span>
+                <strong>{{ order.address }}</strong>
+            </div>
+            <div class="flex justify-between border-b pb-2">
+                <span class="font-medium">Amount:</span>
+                <strong class="text-green-600">{{ order.amount | currency }}</strong>
+            </div>
+            <div class="flex justify-between border-b pb-2">
+                <span class="font-medium">Status:</span>
+                <strong class="capitalize" [ngClass]="{
+                    'text-blue-500': order.orderStatus === 'Processing',
+                    'text-green-500': order.orderStatus === 'Completed',
+                    'text-red-500': order.orderStatus === 'Cancelled'
+                }">
+                    {{ order.orderStatus }}
+                </strong>
+            </div>
+            <div class="flex justify-between">
+                <span class="font-medium">Date:</span>
+                <strong>{{ order.date | date }}</strong>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

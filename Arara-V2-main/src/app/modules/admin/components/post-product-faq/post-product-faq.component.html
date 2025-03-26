@@ -1,0 +1,58 @@
+<div class="max-w-lg mx-auto p-8 bg-white shadow-xl rounded-2xl mt-10">
+    <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Post FAQ</h2>
+  
+    <!-- Loader Spinner -->
+    <div *ngIf="isSpinning" class="flex justify-center">
+      <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 0v4m0-4h4m-4 0H8"></path>
+      </svg>
+    </div>
+  
+    <form [formGroup]="FAQForm" (ngSubmit)="postFAQ()" [class.spinner-active]="isSpinning" class="space-y-6">
+      <!-- File Upload -->
+      <div class="flex flex-col items-center space-y-4">
+        <label class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full cursor-pointer transition transform hover:scale-105">
+          <span class="mr-2">Select a File</span>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.172 7l-6.586 6.586a2 2 0 01-2.828 0L2 10.828m0 0a2 2 0 012.828 0L8 12.828m0 0l6.586-6.586A2 2 0 0117.414 7H20a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2h2.586z">
+            </path>
+          </svg>
+          <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+        </label>
+  
+        <div *ngIf="selectedFile" class="mt-2">
+          <div class="w-40 h-40 rounded-full overflow-hidden bg-gray-100 shadow-lg">
+            <img [src]="imagePreview" alt="Selected Image" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Question Field -->
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Question</label>
+        <textarea placeholder="Enter question" formControlName="question" 
+                  class="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"></textarea>
+        <p *ngIf="FAQForm.get('question').invalid && FAQForm.get('question').touched" class="text-red-500 text-sm mt-1">
+          This input is required!
+        </p>
+      </div>
+  
+      <!-- Answer Field -->
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1">Answer</label>
+        <textarea placeholder="Enter answer" formControlName="answer" 
+                  class="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"></textarea>
+        <p *ngIf="FAQForm.get('answer').invalid && FAQForm.get('answer').touched" class="text-red-500 text-sm mt-1">
+          This input is required!
+        </p>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" class="w-full py-3 bg-black text-white font-bold rounded-xl hover:bg-gray-800 transition duration-200">
+        Post FAQ
+      </button>
+    </form>
+  </div>
+  

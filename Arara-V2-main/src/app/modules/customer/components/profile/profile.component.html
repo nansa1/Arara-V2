@@ -1,0 +1,63 @@
+<div class="flex items-center justify-center min-h-screen bg-inherit p-4">
+  <form [formGroup]="validateForm" (ngSubmit)="submitForm()"
+    class="w-full max-w-screen-sm sm:max-w-screen-md md:max-w-screen-sm mx-auto p-8 bg-white shadow-lg rounded-2xl space-y-6">
+    
+    <!-- Profile Card -->
+    <div class="flex flex-col items-center">
+      <div class="relative w-28 h-28">
+        <img *ngIf="existingProfileImage" [src]="existingProfileImage" alt="Profile"
+          class="w-full h-full rounded-full border-4 border-blue-500 shadow-md object-cover">
+        <div *ngIf="!existingProfileImage"
+          class="w-full h-full flex items-center justify-center rounded-full bg-gray-200 border-4 border-gray-300 shadow-md">
+          <svg class="w-14 h-14 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-7 8a7 7 0 0114 0H3z"></path>
+          </svg>
+        </div>
+        <!-- Edit Icon -->
+        <label for="upload-profile-image"
+          class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-md cursor-pointer hover:bg-blue-700 transition">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M4 13v3h3l8-8-3-3-8 8zM14.7 5.3a1 1 0 011.4 1.4l-1.4-1.4z"></path>
+          </svg>
+        </label>
+      </div>
+    </div>
+
+    <input type="file" id="upload-profile-image" accept="image/x-png,image/gif,image/jpeg"
+      (change)="onFileSelected($event)" hidden>
+
+    <!-- Email Field -->
+    <div>
+      <label class="block text-gray-700 font-medium">E-mail</label>
+      <input type="email" placeholder="Email" formControlName="email"
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <p class="text-red-500 text-sm" *ngIf="validateForm.get('email')?.hasError('required')">
+        This input is required!
+      </p>
+    </div>
+
+    <!-- Name Field -->
+    <div>
+      <label class="block text-gray-700 font-medium">Name</label>
+      <input type="text" placeholder="Name" formControlName="name"
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <p class="text-red-500 text-sm" *ngIf="validateForm.get('name')?.hasError('required')">
+        This input is required!
+      </p>
+    </div>
+
+    <!-- Save Button -->
+    <button type="submit" [disabled]="!validateForm.valid"
+      class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition disabled:opacity-50">
+      Save
+    </button>
+
+    <!-- Change Password Link -->
+    <div class="text-center">
+      <a routerLink="/customer/change_password" class="text-blue-600 hover:text-blue-800 text-sm">
+        Want to change the password?
+      </a>
+    </div>
+
+  </form>
+</div>

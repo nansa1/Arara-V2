@@ -1,0 +1,94 @@
+<!-- Modern Cart Design -->
+<div *ngIf="cartItems.length > 0; else emptyCart" class="p-8 bg-inherit min-h-screen">
+
+    <!-- Cart Container -->
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Shopping Cart</h2>
+        
+        <!-- Cart Items -->
+        <div *ngFor="let item of cartItems" class="flex items-center justify-between border-b py-4">
+            <div class="flex items-center gap-4">
+                <!-- Product Image -->
+                <div class="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                    <img [src]="item.processedImg" alt="product-image" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Product Details -->
+                <div>
+                    <p class="text-lg font-semibold text-gray-800">{{ item.productName }}</p>
+                    <p class="text-gray-600">{{ item.price | currency }}</p>
+                </div>
+            </div>
+
+            <!-- Quantity Controls -->
+            <div class="flex items-center gap-3">
+                <button (click)="decreaseQuantity(item.productId)" [disabled]="item.quantity == 1"
+                    class="p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition disabled:opacity-50">
+                    <mat-icon>remove</mat-icon>
+                </button>
+
+                <span class="text-lg font-semibold">{{ item.quantity }}</span>
+
+                <button (click)="increaseQuantity(item.productId)"
+                    class="p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button (click)="removeFromCart(item.productId)"
+                    class="p-2 bg-red-600 hover:bg-red-700 rounded-full transition text-white">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="mt-6 p-4 bg-gray-50 rounded-lg shadow">
+            <p class="flex justify-between text-lg font-semibold text-gray-800">
+                <span>Total Amount:</span> <span>{{ order.totalAmount | currency }}</span>
+            </p>
+            <p class="flex justify-between text-red-500 font-semibold">
+                <span>Discount:</span> <span>-{{ order.discount | currency }}</span>
+            </p>
+            <p class="flex justify-between text-lg font-semibold text-blue-600">
+                <span>Final Amount:</span> <span>{{ order.amount | currency }}</span>
+            </p>
+            <p *ngIf="order.couponName" class="text-green-600 text-sm mt-2">
+                Coupon Applied: <strong>{{ order.couponName }}</strong>
+            </p>
+        </div>
+
+        <!-- Place Order Button -->
+        <div class="mt-6">
+            <button (click)="placeOrder()"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-medium transition shadow-md hover:shadow-lg transform hover:scale-105">
+                Place Order
+            </button>
+        </div>
+    </div>
+
+<!-- Coupon Form -->
+<div *ngIf="order.couponName == null" class="max-w-lg mx-auto mt-6 p-4 bg-white shadow-md rounded-lg">
+    <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()" class="flex items-center">
+        <input type="text" formControlName="code"
+            class="flex-grow border border-gray-300 px-4 py-2 rounded-l-lg focus:ring-2 focus:ring-blue-500 transition"
+            placeholder="Enter Coupon Code">
+        
+        <button type="submit"
+            class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-r-lg transition whitespace-nowrap">
+            Apply
+        </button>
+    </form>
+    <p *ngIf="couponForm.get('code').invalid && couponForm.get('code').touched" class="text-red-500 text-sm mt-2">
+        This input is required!
+    </p>
+</div>
+
+</div>
+
+<!-- Empty Cart Message -->
+<ng-template #emptyCart>
+    <div class="flex flex-col items-center justify-center min-h-screen text-gray-500">
+        <mat-icon class="text-6xl">remove_shopping_cart</mat-icon>
+        <p class="mt-4 text-lg">Nothing to see here.</p>
+    </div>
+</ng-template>

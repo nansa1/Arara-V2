@@ -1,0 +1,49 @@
+// /* Center the card horizontally and add spacing */
+// .container {
+//     @apply flex justify-center pt-12;
+// }
+
+// /* Style the card */
+// .table-container {
+//     @apply w-full bg-white shadow-lg rounded-lg overflow-hidden;
+// }
+
+// /* Style the table */
+// table {
+//     @apply w-full border-collapse border border-gray-300;
+// }
+
+// /* Style the table header */
+// th {
+//     @apply font-bold text-blue-900 p-3 bg-gray-200 text-left;
+// }
+
+// /* Style table rows */
+// td {
+//     @apply p-3 border;
+// }
+
+// /* Add a bold style to specific cells */
+// .bold-cell {
+//     @apply font-bold;
+// }
+
+// /* Add shadow to the table */
+// .table-shadow {
+//     @apply shadow-md;
+// }
+
+// /* Hover effect for rows */
+// tr:hover {
+//     @apply bg-gray-100;
+// }
+
+// /* Style the table header row */
+// thead {
+//     @apply bg-gray-200;
+// }
+
+// /* Pagination styling (optional) */
+// .pagination-footer {
+//     @apply bg-gray-200 rounded-b-lg mt-4 p-3;
+// }

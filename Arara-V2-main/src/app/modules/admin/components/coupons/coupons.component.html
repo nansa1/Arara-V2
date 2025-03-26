@@ -1,0 +1,29 @@
+<div class="flex justify-center pt-12">
+    <div class="w-full bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-200">
+                <!-- Table Header -->
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-3 font-bold text-black">Coupon ID</th>
+                        <th class="border border-gray-300 px-4 py-3 font-bold text-black">Name</th>
+                        <th class="border border-gray-300 px-4 py-3 font-bold text-black">Discount</th>
+                        <th class="border border-gray-300 px-4 py-3 font-bold text-black">Code</th>
+                        <th class="border border-gray-300 px-4 py-3 font-bold text-black">Expiration Date</th>
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody>
+                    <tr class="border border-gray-300 hover:bg-gray-100 transition duration-200" *ngFor="let coupon of coupons">
+                        <td class="border border-gray-300 px-4 py-3 text-gray-900">{{ coupon.id }}</td>
+                        <td class="border border-gray-300 px-4 py-3 text-gray-900">{{ coupon.name }}</td>
+                        <td class="border border-gray-300 px-4 py-3 font-bold text-black">{{ coupon.discount }}%</td>
+                        <td class="border border-gray-300 px-4 py-3 font-bold text-black">{{ coupon.code }}</td>
+                        <td class="border border-gray-300 px-4 py-3 text-gray-900">{{ coupon.expirationDate | date: 'dd/MM/yyyy' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

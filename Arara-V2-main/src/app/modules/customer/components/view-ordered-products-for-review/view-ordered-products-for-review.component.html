@@ -1,0 +1,31 @@
+<!-- cart.component.html -->
+<div *ngIf="orderedProductDetailsList.length > 0" class="p-6 bg-gray-100 rounded-lg shadow-md">
+    <div class="space-y-6">
+        <div *ngFor="let product of orderedProductDetailsList" class="bg-white p-4 rounded-lg shadow-lg flex items-center gap-4">
+            <!-- Product Image -->
+            <div class="w-24 h-24 flex-shrink-0">
+                <img [src]="product.processedImg" alt="Product Image" class="w-full h-full object-cover rounded-lg">
+            </div>
+
+            <!-- Product Details -->
+            <div class="flex-grow">
+                <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
+                <p class="text-gray-600">Price: <span class="font-medium">{{ product.productPrice | currency }}</span></p>
+                <p class="text-gray-600">Quantity: <span class="font-medium">{{ product.quantity }}</span></p>
+            </div>
+
+            <!-- Review Button -->
+            <div>
+                <a [routerLink]="'/customer/review/' + product.id" 
+                   class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">
+                    Give Review
+                </a>
+            </div>
+        </div>
+        
+        <!-- Total Price Section -->
+        <div class="text-right text-lg font-semibold text-gray-900 mt-4">
+            Total: {{ totalAmount | currency }}
+        </div>
+    </div>
+</div>

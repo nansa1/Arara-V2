@@ -1,0 +1,69 @@
+.container {
+    @apply max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg;
+
+    h2 {
+        @apply text-center mb-6 text-black text-2xl font-bold;
+    }
+
+    form {
+        @apply flex flex-col space-y-4;
+
+        .file-upload-container {
+            @apply flex flex-col items-center space-y-2;
+
+            .file-upload-label {
+                @apply flex items-center justify-center px-6 py-3 bg-black text-white cursor-pointer rounded-md transition-all hover:bg-gray-800;
+
+                span {
+                    @apply mr-2;
+                }
+            }
+        }
+
+        .image-preview {
+            @apply flex justify-center mt-4;
+
+            .circle-image {
+                @apply w-36 h-36 rounded-full overflow-hidden bg-gray-300 shadow-md flex items-center justify-center;
+
+                .preview-image {
+                    @apply w-full h-full object-cover;
+                }
+            }
+        }
+
+        .form-field {
+            @apply w-full;
+
+            label {
+                @apply block text-black font-medium mb-1;
+            }
+
+            input,
+            textarea,
+            select {
+                @apply w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-black text-lg focus:ring-2 focus:ring-black;
+            }
+
+            .error-text {
+                @apply text-red-500 text-sm mt-1;
+            }
+        }
+
+        button {
+            @apply bg-black text-white w-full py-3 rounded-md font-semibold text-lg cursor-pointer hover:bg-gray-800 transition;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        @apply p-4;
+
+        form {
+            .form-field {
+                @apply mb-2;
+            }
+        }
+    }
+}
